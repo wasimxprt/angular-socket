@@ -38,6 +38,7 @@ export class AssetsComponent implements OnInit, AfterViewInit {
   title = 'socketio-angular';
   displayedColumns: string[] = ['name'];
   dataSource = new MatTableDataSource<PeriodicElement>([]);
+  isLoading = true;
 
   constructor(private socketService: SocketioService, private _liveAnnouncer: LiveAnnouncer) { }
 
@@ -51,13 +52,19 @@ export class AssetsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     const api = new DerivAPIBasic({ app_id: 1089 });
-    api.assetIndex().then((response) => {
+    api.assetIndex().then((response:any) => {
       if (response.error) {
         console.log("Error ", response.error)
       }
-     
+      this.isLoading = false;
       this.dataSource = new MatTableDataSource<PeriodicElement>(response.asset_index.filter((item:any) => item[0].includes("frx")));
     });
+
+    // const ticks = api.ticks('R_100');
+    // ticks.onUpdate().subscribe(console.log);
+
+
+    
   }
 
   ngOnDestroy() {

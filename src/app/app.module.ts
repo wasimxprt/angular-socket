@@ -19,12 +19,23 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table'
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatSortModule } from '@angular/material/sort' 
+import { MatSortModule } from '@angular/material/sort'
 import { AppRoutingModule } from './app-routing.module';
 import { CardComponent } from './card/card.component';
 import { AssetsComponent } from './assets/assets.component';
 import { SocketioService } from './services/socketio.service';
+import { ConceptsComponent } from './concepts/concepts.component';
+import { HighlightDirective } from './highlight.directive';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { InterceptordemoComponent } from './interceptordemo/interceptordemo.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthinterceptorInterceptor } from './interceptors/authinterceptor.interceptor';
+import { AsyncComponent } from './async/async.component';
+import { LifecyclehooksComponent } from './lifecyclehooks/lifecyclehooks.component';
+import { ParentComponent } from './parent/parent.component';
+import { ChildComponent } from './child/child.component';
 
 
 @NgModule({
@@ -33,7 +44,15 @@ import { SocketioService } from './services/socketio.service';
     NavComponent,
     DashComponent,
     CardComponent,
-    AssetsComponent
+    AssetsComponent,
+    ConceptsComponent,
+    HighlightDirective,
+    PagenotfoundComponent,
+    InterceptordemoComponent,
+    AsyncComponent,
+    LifecyclehooksComponent,
+    ParentComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,
@@ -53,9 +72,15 @@ import { SocketioService } from './services/socketio.service';
     MatTabsModule,
     MatChipsModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule,
+    HttpClientModule    
   ],
-  providers: [SocketioService],
+  providers: [SocketioService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthinterceptorInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

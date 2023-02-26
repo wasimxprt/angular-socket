@@ -16,7 +16,9 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+          <canvas baseChart width="400" height="400" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
+            [legend]="lineChartLegend">
+          </canvas>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
